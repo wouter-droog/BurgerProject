@@ -20,10 +20,12 @@ const buildControls = (props) => {
             disabled={props.disabledInfo[ctrl.type]}/>
     ));
     
+
     return (
     <div className={buildControlsStyles.BuildControls}>
         <p>Current price: <strong>{props.price.toFixed(2)}$</strong></p>
         {buildControls}
+        <button disabled={!props.purchasable} className={buildControlsStyles.OrderButton}>Order now</button>
     </div>
     )
 };

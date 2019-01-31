@@ -5,9 +5,9 @@ import layoutStyles from './Layout.module.css';
 const layout = (props) => (
     <>
         <div>Toolbar, SideDrawer, Backdrop</div>
-        <main className={layoutStyles.Content}>
+        <div className={layoutStyles.Content}>
             {props.children}
-        </main>
+        </div>
     </>
 );
 
