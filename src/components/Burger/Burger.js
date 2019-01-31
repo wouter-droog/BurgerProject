@@ -7,7 +7,7 @@ import BurgerStyles from './Burger.module.css';
 const burger = (props) => {
 
     let ingredients = [];  
-    for (let ingredient of Object.keys(props.ingredients)) {
+    for (let ingredient in props.ingredients) {
         for (let i = 0; i < props.ingredients[ingredient]; i++ ){
             ingredients.push(<BurgerIngredient key={ingredient + i} type={ingredient}/>);
         }
