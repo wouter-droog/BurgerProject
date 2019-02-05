@@ -6,7 +6,7 @@ import layoutStyles from './Layout.module.css';
 
 class Layout extends React.Component {
     state = {
-        hasSideDrawer: true
+        hasSideDrawer: false
     }
     
     sideDrawerClosedHandler = () => {
@@ -15,10 +15,18 @@ class Layout extends React.Component {
         })
     }
 
+    toggleSideDrawerHandler = () => {
+        this.setState((prevState) => {
+            return {
+                hasSideDrawer: !prevState.hasSideDrawer
+            }
+        })
+    }
+
     render() {
 
         return <>
-            <Toolbar />
+            <Toolbar menuClicked={this.toggleSideDrawerHandler} />
             <SideDrawer clicked={this.sideDrawerClosedHandler} show={this.state.hasSideDrawer}/>
             <main className={layoutStyles.Content}>
                 {this.props.children}
