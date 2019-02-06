@@ -1,5 +1,6 @@
 import React from 'react';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
+import EIngredient from '../../enums/EIngredient';
 
 import BurgerStyles from './Burger.module.css';
 
@@ -17,11 +18,12 @@ const burger = (props) => {
         ingredients = <h2>Start adding ingredients</h2>
     }
 
+
     return (
         <div className={BurgerStyles.Burger}>
-            <BurgerIngredient type={'bread-top'} />
+            <BurgerIngredient type={EIngredient.breadTop} />
             {ingredients}
-            <BurgerIngredient type={'bread-bottom'} />
+            <BurgerIngredient type={EIngredient.breadBottom} />
         </div>
     );
 };

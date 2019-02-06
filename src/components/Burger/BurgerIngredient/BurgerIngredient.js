@@ -1,10 +1,8 @@
 import  React from 'react';
 import PropTypes from 'prop-types';
+import EIngredient from '../../../enums/EIngredient';
 
 import burgerIngredientStyles from './BurgerIngredient.module.css';
-
-
-const typeIngredients = ['bread-top', 'bread-bottom', 'cheese', 'meat', 'bacon', 'salad'];
 
 
 const burgerIngredient = (props) => {
@@ -12,10 +10,10 @@ const burgerIngredient = (props) => {
     let ingredient = null;
 
     switch (props.type) {
-        case 'bread-bottom':
+        case EIngredient.breadBottom:
             ingredient = <div className={burgerIngredientStyles.BreadBottom}></div>;
             break;
-        case 'bread-top':
+        case EIngredient.breadTop:
             ingredient = (
                 <div className={burgerIngredientStyles.BreadTop}>
                     <div className={burgerIngredientStyles.Seeds1}></div>
@@ -23,16 +21,16 @@ const burgerIngredient = (props) => {
                 </div>
             );
             break;
-        case 'meat':
+        case EIngredient.meat:
             ingredient = <div className={burgerIngredientStyles.Meat}></div>;
             break;
-        case 'cheese':
+        case EIngredient.cheese:
             ingredient = <div className={burgerIngredientStyles.Cheese}></div>;
             break;
-        case 'salad':
+        case EIngredient.salad:
             ingredient = <div className={burgerIngredientStyles.Salad}></div>;
             break;
-        case 'bacon':
+        case EIngredient.bacon:
             ingredient = <div className={burgerIngredientStyles.Bacon}></div>;
             break;
         default:
@@ -45,7 +43,7 @@ const burgerIngredient = (props) => {
 
 
 burgerIngredient.propTypes = {
-    type: PropTypes.oneOf(typeIngredients).isRequired
+    type: PropTypes.oneOf(Object.values(EIngredient)).isRequired
 }
 
 export default burgerIngredient;

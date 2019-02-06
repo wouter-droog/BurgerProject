@@ -1,13 +1,14 @@
 import React from 'react';
 import BuildControl from './BuildControl/BuildControl';
+import EIngredient from '../../../enums/EIngredient';
 
 import buildControlsStyles from './BuildControls.module.css';
 
 const controls = [ 
-    { label: 'Salad', type: 'salad' },
-    { label: 'Bacon', type: 'bacon' },
-    { label: 'Cheese', type: 'cheese' },
-    { label: 'Meat', type: 'meat' }
+    { label: 'Salad', type: EIngredient.salad },
+    { label: 'Bacon', type: EIngredient.bacon },
+    { label: 'Cheese', type: EIngredient.cheese },
+    { label: 'Meat', type: EIngredient.meat }
 ];
 
 const buildControls = (props) => {
