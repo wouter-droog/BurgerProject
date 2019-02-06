@@ -29,9 +29,9 @@ class Layout extends React.Component {
         <>
             <Toolbar menuClicked={this.toggleSideDrawerHandler} />
             <SideDrawer clicked={this.sideDrawerClosedHandler} show={this.state.hasSideDrawer}/>
-            <main className={layoutStyles.Content}>
+            <div className={layoutStyles.Content}>
                 {this.props.children}
-            </main>
+            </div>
         </>);
     }
 }

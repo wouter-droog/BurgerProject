@@ -43,7 +43,8 @@ const burgerIngredient = (props) => {
 
 
 burgerIngredient.propTypes = {
-    type: PropTypes.oneOf(Object.values(EIngredient)).isRequired
+    // type: PropTypes.oneOf(Object.values(EIngredient)).isRequired
+    type: PropTypes.oneOf(Object.keys(EIngredient).map((key) => EIngredient[key])).isRequired
 }
 
 export default burgerIngredient;
