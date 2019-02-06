@@ -1,6 +1,6 @@
 import React from 'react';
-import Toolbar from '../Navigation/Toolbar/Toolbar';
-import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
+import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
+import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 
 import layoutStyles from './Layout.module.css';
 
@@ -25,13 +25,14 @@ class Layout extends React.Component {
 
     render() {
 
-        return <>
+        return (
+        <>
             <Toolbar menuClicked={this.toggleSideDrawerHandler} />
             <SideDrawer clicked={this.sideDrawerClosedHandler} show={this.state.hasSideDrawer}/>
             <main className={layoutStyles.Content}>
                 {this.props.children}
             </main>
-        </>;
+        </>);
     }
 }
 
