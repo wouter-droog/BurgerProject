@@ -4,6 +4,7 @@ import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import EIngredient from '../../enums/EIngredient';
+import httpClient from '../../axios-orders';
 
 
 class BurgerBuilder extends Component {
@@ -57,8 +58,24 @@ class BurgerBuilder extends Component {
     }
 
     continueOrderHandler = () => {
-        alert("you continue");
-    }
+        const order = {
+            ingredients: this.state.ingredients,
+            price: this.state.totalPrice,
+            customer: {
+                name: 'Wouter Droog',
+                address: {
+                    street: 'Testlaan',
+                    zipCode: '3464AA',
+                    country: 'Netherlands'
+                },
+                email: 'test@test.nl'
+            },
+            deliveryMethod: 'fastest'
+        };
+        httpClient.post('/orders.json', order)
+            .then(response => console.log(response))
+            .catch(error => console.log(error));
+            }
 
     updatePurchableState = (ingredients) => {
         const arr = Object.keys(ingredients).map((key) => ingredients[key]);
