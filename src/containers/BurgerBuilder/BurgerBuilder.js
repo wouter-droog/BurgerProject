@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
@@ -69,32 +70,33 @@ class BurgerBuilder extends Component {
     }
 
     continueOrderHandler = () => {
-        this.setState({
-            isLoading: true
-        });
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Wouter Droog',
-                address: {
-                    street: 'Testlaan',
-                    zipCode: '3464AA',
-                    country: 'Netherlands'
-                },
-                email: 'test@test.nl'
-            },
-            deliveryMethod: 'fastest'
-        };
-        httpClient.post('/orders.json', order)
-            .then(response => {this.setState({
-                isLoading: false, 
-                isReadyToOrder: false})
-            })
-            .catch(error => {this.setState(
-                {isLoading: false,
-                isReadyToOrder: false})
-            });
+        this.props.history.push(`${this.props.match.url}checkout`);
+        // this.setState({
+        //     isLoading: true
+        // });
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: 'Wouter Droog',
+        //         address: {
+        //             street: 'Testlaan',
+        //             zipCode: '3464AA',
+        //             country: 'Netherlands'
+        //         },
+        //         email: 'test@test.nl'
+        //     },
+        //     deliveryMethod: 'fastest'
+        // };
+        // httpClient.post('/orders.json', order)
+        //     .then(response => {this.setState({
+        //         isLoading: false, 
+        //         isReadyToOrder: false})
+        //     })
+        //     .catch(error => {this.setState(
+        //         {isLoading: false,
+        //         isReadyToOrder: false})
+        //     });
     }
 
     updatePurchableState = (ingredients) => {
