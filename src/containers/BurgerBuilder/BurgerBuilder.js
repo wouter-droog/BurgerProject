@@ -70,7 +70,14 @@ class BurgerBuilder extends Component {
     }
 
     continueOrderHandler = () => {
-        this.props.history.push(`${this.props.match.url}checkout`);
+        let ingredientParams = [];
+        Object.keys(this.state.ingredients).forEach((ingredient) => {
+            ingredientParams.push(`${encodeURIComponent(ingredient)}=${encodeURIComponent(this.state.ingredients[ingredient])}`);
+        });
+        this.props.history.push({
+            pathname: 'checkout',
+            search: ingredientParams.join('&')
+        });
         // this.setState({
         //     isLoading: true
         // });
