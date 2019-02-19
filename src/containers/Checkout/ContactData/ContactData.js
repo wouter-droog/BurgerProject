@@ -66,12 +66,15 @@ class ContactData extends Component {
 
   orderHandler = event => {
     event.preventDefault();
-    this.setState({
-      isLoading: true
-    });
+    this.setState({isLoading: true});
+    const formData = {};
+    for (let key in this.state.orderForm) {
+        formData[key] = this.state.orderForm[key].value
+    }
     const order = {
       ingredients: this.props.ingredients,
-      price: this.props.price
+      price: this.props.price,
+      orderData: formData
     };
     httpClient
       .post("/orders.json", order)
@@ -120,9 +123,9 @@ class ContactData extends Component {
     ))
 
     let form = (
-      <form>
+      <form onSubmit={this.orderHandler}>
         {inputElements}
-        <Button clicked={this.orderHandler} btnType="Success">ORDER</Button>
+        <Button btnType="Success">ORDER</Button>
       </form>
     );
     if (this.state.isLoading) {
