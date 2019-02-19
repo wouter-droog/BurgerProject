@@ -11,6 +11,14 @@ const Input = (props) => {
         case 'textarea':
             inputElement = <textarea className={inputStyles.InputElement} {...props.elementConfig} value={props.value}/>
             break;
+        case 'select':
+            const selectOptions = props.elementConfig.options.map(option => (
+                <option key={option.value} value={option.value}>{option.displayValue}</option>
+            ));
+            inputElement = <select className={inputStyles.InputElement} value={props.value}>
+                {selectOptions}
+            </select>
+            break;
         default:
             break;
     }
