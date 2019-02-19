@@ -21,6 +21,7 @@ class Checkout extends Component {
 
     componentWillMount () {
         const queryIngredients = {};
+        //TODO: IE bug: use following package: https://github.com/jerrybendy/url-search-params-polyfill
         const query = new URLSearchParams(this.props.location.search);
         let price = 0;
         for (let param of query.entries()) {
