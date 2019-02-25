@@ -5,10 +5,10 @@ import EIngredient from '../../../enums/EIngredient';
 import buildControlsStyles from './BuildControls.module.css';
 
 const controls = [ 
-    { label: 'Salad', type: EIngredient.salad },
-    { label: 'Bacon', type: EIngredient.bacon },
-    { label: 'Cheese', type: EIngredient.cheese },
-    { label: 'Meat', type: EIngredient.meat }
+    { label: EIngredient.salad.charAt(0).toUpperCase() + EIngredient.salad.slice(1), type: EIngredient.salad },
+    { label: EIngredient.bacon.charAt(0).toUpperCase() + EIngredient.bacon.slice(1), type: EIngredient.bacon },
+    { label: EIngredient.cheese.charAt(0).toUpperCase() + EIngredient.cheese.slice(1), type: EIngredient.cheese },
+    { label: EIngredient.meat.charAt(0).toUpperCase() + EIngredient.meat.slice(1), type: EIngredient.meat }
 ];
 
 const buildControls = (props) => {
@@ -20,7 +20,7 @@ const buildControls = (props) => {
             remove={() => props.remove(ctrl.type)}
             disabled={props.disabledInfo[ctrl.type]}/>
     ));
-    
+
 
     return (
     <div className={buildControlsStyles.BuildControls}>
