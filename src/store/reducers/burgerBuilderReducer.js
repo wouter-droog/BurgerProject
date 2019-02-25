@@ -1,5 +1,5 @@
-import * as actionTypes from './action';
-import EIngredient from '../enums/EIngredient';
+import * as actionTypes from '../action/actionTypes';
+import EIngredient from '../../enums/EIngredient';
 
 const initialState = {
     ingredients: {
