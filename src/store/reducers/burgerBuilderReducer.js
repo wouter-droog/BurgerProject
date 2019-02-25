@@ -1,21 +1,17 @@
-import * as actionTypes from '../action/actionTypes';
+import * as actionTypes from '../actions/actionTypes';
 import EIngredient from '../../enums/EIngredient';
 
 const initialState = {
-    ingredients: {
-        salad: 0,
-        bacon: 0,
-        cheese: 0,
-        meat: 0
-    },
+    ingredients: null,
     totalPrice: 4,
-    isPurchasable: false
+    isPurchasable: false,
+    hasError: false
 };
 
 
 const reducer = ( state = initialState, action ) => {
     const newState = Object.assign({}, state);
-    const newIngredients = Object.assign({}, newState.ingredients);
+    let newIngredients = Object.assign({}, newState.ingredients);
     switch (action.type) {
         case actionTypes.ADD_INGREDIENT:
             newIngredients[action.ingredientName] = state.ingredients[action.ingredientName] + 1;
@@ -24,6 +20,13 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.REMOVE_INGREDIENT:
             newIngredients[action.ingredientName] = state.ingredients[action.ingredientName] - 1;
             newState.totalPrice = state.totalPrice - EIngredient.properties[EIngredient[action.ingredientName]].price;
+            break;
+        case actionTypes.SET_INGREDIENTS:
+            newIngredients = action.ingredients
+            newState.hasError = false;
+            break;
+        case actionTypes.FETCH_INGREDIENTS_FAILED:
+            newState.hasError = true;
             break;
         default:
             break;

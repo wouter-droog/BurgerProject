@@ -1,2 +1,2 @@
-export { addIngredient, removeIngredient } from './burgerBuilderAC';
+export { addIngredient, removeIngredient, initIngredients } from './burgerBuilderAC';
 export {} from './orderAC';
