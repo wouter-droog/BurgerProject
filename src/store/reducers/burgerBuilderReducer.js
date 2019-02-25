@@ -22,7 +22,12 @@ const reducer = ( state = initialState, action ) => {
             newState.totalPrice = state.totalPrice - EIngredient.properties[EIngredient[action.ingredientName]].price;
             break;
         case actionTypes.SET_INGREDIENTS:
-            newIngredients = action.ingredients
+            newIngredients = {
+                salad: action.ingredients.salad,
+                bacon: action.ingredients.bacon,
+                cheese: action.ingredients.cheese,
+                meat: action.ingredients.meat
+            }
             newState.hasError = false;
             break;
         case actionTypes.FETCH_INGREDIENTS_FAILED:

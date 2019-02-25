@@ -52,7 +52,6 @@ class BurgerBuilder extends Component {
         }
 
         let orderSummary = <Spinner />
-        console.log('burgerBuilder', this.props.error, this.props.ingrs.bacon);
         let burgerAndControls = this.props.error ? <p>The page can't be loaded</p> : <Spinner />
         if (Object.keys(this.props.ingrs).length !== 0) {
             burgerAndControls = (
