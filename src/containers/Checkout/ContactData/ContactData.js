@@ -185,9 +185,9 @@ class ContactData extends Component {
 
 const mapStateToProps = state => {
   return {
-    ingrs: state.ingredients,
-    totalPrice: state.totalPrice,
-    isLoading: state.isLoading
+    ingrs: state.burgerBuilder.ingredients,
+    totalPrice: state.burgerBuilder.totalPrice,
+    isLoading: state.order.isLoading
   }
 }
 
