@@ -6,6 +6,7 @@ import CheckoutSummary from '../../components/CheckoutSummary/CheckoutSummary';
 import checkoutStyles from './Checkout.module.css';
 import ContactData from './ContactData/ContactData';
 
+
 const CONTACTDATA_PATH = '/contact-data';
 
 class Checkout extends Component {
@@ -22,14 +23,16 @@ class Checkout extends Component {
     render() {
         let summary = <Redirect to='/' />
         if (Object.keys(this.props.ingrs).length !== 0) {
+            const afterPurchasedRedirect = this.props.hasBeenPurchased ? <Redirect to='/' /> : null;
             summary = (
                 <div className={checkoutStyles.Checkout}>
-                <CheckoutSummary 
-                    ingredients={this.props.ingrs} 
-                    checkoutCancel={this.checkoutCancelHandler}
-                    checkoutContinue={this.checkoutContinueHandler}/>
-                    <Route path={this.props.match.path + CONTACTDATA_PATH} component={ContactData}/>
-            </div>
+                {afterPurchasedRedirect}
+                    <CheckoutSummary 
+                        ingredients={this.props.ingrs} 
+                        checkoutCancel={this.checkoutCancelHandler}
+                        checkoutContinue={this.checkoutContinueHandler}/>
+                        <Route path={this.props.match.path + CONTACTDATA_PATH} component={ContactData}/>
+                </div>
             )
         }
 
@@ -40,7 +43,8 @@ class Checkout extends Component {
 
 const mapStateToProps = state => {
     return {
-        ingrs: state.burgerBuilder.ingredients
+        ingrs: state.burgerBuilder.ingredients,
+        hasBeenPurchased: state.order.hasBeenPurchased
     };
 }
 

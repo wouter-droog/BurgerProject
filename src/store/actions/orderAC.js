@@ -24,11 +24,16 @@ export const purchaseBurger = (orderData) => {
         httpClient
         .post("/orders.json", orderData)
         .then(response => {
-            console.log(response.data);
             dispatch(purchaseBurgerSucces(response.data.name, orderData));
         })
         .catch(error => {
             dispatch(purchaseBurgerFail(error));
         });
+    }
+}
+
+export const purchaseInit = () => {
+    return {
+        type: actionTypes.PURCHASE_INIT
     }
 }
