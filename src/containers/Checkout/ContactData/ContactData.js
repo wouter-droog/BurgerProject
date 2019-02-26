@@ -5,6 +5,8 @@ import httpClient from "../../../axios-orders";
 import Button from "../../../components/UI/Button/Button";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Input/Input";
+import withErrorHandling from '../../../hoc/withErrorHandling/withErrorHandling';
+import * as orderActions from '../../../store/actions/orderAC';
 
 import contactDataStyles from "./ContactData.module.css";
 
@@ -90,33 +92,22 @@ class ContactData extends Component {
         isValid: true
     }
     },
-    isFormValid: false,
-    isLoading: false
+    isFormValid: false
   };
 
   orderHandler = event => {
     event.preventDefault();
-    this.setState({isLoading: true});
     const formData = {};
     for (let key in this.state.orderForm) {
         formData[key] = this.state.orderForm[key].value
     }
+
     const order = {
       ingredients: this.props.ingrs,
       price: this.props.totalPrice,
       orderData: formData
     };
-    httpClient
-      .post("/orders.json", order)
-      .then(response => {
-        this.setState({
-          isLoading: false
-        });
-        this.props.history.push("/");
-      })
-      .catch(error => {
-        this.setState({ isLoading: false });
-      });
+    this.props.onOrderBurger(order);
   };
 
   inputChangedHandler = (event, inputIdentifier) => {
@@ -180,7 +171,7 @@ class ContactData extends Component {
         <Button disabled={!this.state.isFormValid} btnType="Success">ORDER</Button>
       </form>
     );
-    if (this.state.isLoading) {
+    if (this.props.isLoading) {
       form = <Spinner />;
     }
     return (
@@ -195,9 +186,16 @@ class ContactData extends Component {
 const mapStateToProps = state => {
   return {
     ingrs: state.ingredients,
-    totalPrice: state.totalPrice
+    totalPrice: state.totalPrice,
+    isLoading: state.isLoading
+  }
+}
+
+const matpDispatchToProps = dispatch => {
+  return {
+    onOrderBurger: (orderData) => dispatch(orderActions.purchaseBurger(orderData))
   }
 }
 
 
-export default connect(mapStateToProps)(ContactData);
+export default connect(mapStateToProps, matpDispatchToProps)(withErrorHandling(ContactData, httpClient));
