@@ -22,7 +22,7 @@ class Checkout extends Component {
 
     render() {
         let summary = <Redirect to='/' />
-        if (Object.keys(this.props.ingrs).length !== 0) {
+        if (this.props.ingrs) {
             const afterPurchasedRedirect = this.props.hasBeenPurchased ? <Redirect to='/' /> : null;
             summary = (
                 <div className={checkoutStyles.Checkout}>
