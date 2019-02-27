@@ -1,42 +1,29 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
+import * as actions from '../../store/actions/actionsIndex';
 import Order from '../../components/Order/Order';
+import Spinner from '../../components/UI/Spinner/Spinner';
 import httpClient from '../../axios-orders';
 import withErrorHandling from '../../hoc/withErrorHandling/withErrorHandling'
 
 
 class Orders extends Component {
-    state = { 
-        orders: [],
-        isLoading: true
-     }
 
     componentDidMount () {
-        httpClient.get('/orders.json')
-            .then(res => {
-                const fetchedOrders = [];
-                for(let key in res.data) {
-                    fetchedOrders.push({
-                        ...res.data[key],
-                        id: key
-                    });
-                }
-
-                this.setState({
-                    isLoading: false,
-                    orders: fetchedOrders
-                })
-            })
-            .catch(err => {
-                this.setState({ isLoading: false})
-            });
+        this.props.onFetchOrders();
     }
+
     render() {
-        let orders = this.state.orders.map((order) => {
-            return (
-                <Order key={order.id} ingredients={order.ingredients} price={order.price} />
-            )
-        });
+        let orders = <Spinner />;
+        if (!this.props.isLoading) {
+            orders = this.props.orders.map((order) => {
+                return (
+                    <Order key={order.id} ingredients={order.ingredients} price={order.price} />
+                )
+            });
+        }
+
         
         return (
             <div>
@@ -46,4 +33,17 @@ class Orders extends Component {
     }
 }
 
-export default withErrorHandling(Orders, httpClient);
+const mapStateToProps = state => {
+    return {
+        orders: state.order.orders,
+        isLoading: state.order.isLoading
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchOrders: () => dispatch(actions.fetchOrders())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandling(Orders, httpClient));
