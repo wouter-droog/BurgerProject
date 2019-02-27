@@ -1,50 +1,82 @@
 import * as actionTypes from '../actions/actionTypes';
 import EIngredient from '../../enums/EIngredient';
+import { updateObject } from '../utility';
+
+const START_PRICE = 4;
+const ADD = 'ADD';
+const REMOVE = 'REMOVE';
 
 const initialState = {
     ingredients: null,
-    totalPrice: 4,
+    totalPrice: START_PRICE,
     isPurchasable: false,
     hasError: false
 };
 
+const isBurgerPurchasable = (ingredients) => {
+    const arr = Object.keys(ingredients).map((key) => ingredients[key]);
+    const sumArray = arr.reduce((sum, el) => sum + el, 0);
+    return (sumArray > 0);
+}
+
+const addIngredient = (state, action) => {
+    return adjustIngredient(state, action, ADD);
+}
+
+const removeIngredient = (state, action) => {
+    return adjustIngredient(state, action, REMOVE);
+}
+
+const adjustIngredient = (state, action, operation) => {
+    const updatedIngredient = { [action.ingredientName]: operation === ADD ? state.ingredients[action.ingredientName] + 1 : state.ingredients[action.ingredientName] - 1 };
+    const updatedIngredients = updateObject(state.ingredients, updatedIngredient);
+    const updatedPrice = operation === ADD ? state.totalPrice + EIngredient.properties[EIngredient[action.ingredientName]].price 
+        : state.totalPrice - EIngredient.properties[EIngredient[action.ingredientName]].price;
+    const updatedProps = {
+        ingredients: updatedIngredients,
+        totalPrice: updatedPrice,
+        isPurchasable: isBurgerPurchasable(updatedIngredients)
+    };
+    return updateObject(state, updatedProps);
+}
+
+
+const setIngredients = (state, action) =>{
+    const totalPrice = START_PRICE;
+    const newIngredients = {
+        salad: action.ingredients.salad,
+        bacon: action.ingredients.bacon,
+        cheese: action.ingredients.cheese,
+        meat: action.ingredients.meat
+    }
+    const updatedProps = {
+        ingredients: newIngredients,
+        totalPrice: totalPrice
+    }
+    return updateObject(state, updatedProps);
+}
+
+const fetchIngredientsFailed = (state) => {
+    const updatedProps = {
+        hasError: true
+    }
+    return updateObject(state, updatedProps);
+}
+
 
 const reducer = ( state = initialState, action ) => {
-    let newState = Object.assign({}, state);
-    let newIngredients = Object.assign({}, newState.ingredients);
     switch (action.type) {
         case actionTypes.ADD_INGREDIENT:
-            newIngredients[action.ingredientName] = state.ingredients[action.ingredientName] + 1;
-            newState.totalPrice = state.totalPrice + EIngredient.properties[EIngredient[action.ingredientName]].price;
-            break;
+            return addIngredient(state, action);
         case actionTypes.REMOVE_INGREDIENT:
-            newIngredients[action.ingredientName] = state.ingredients[action.ingredientName] - 1;
-            newState.totalPrice = state.totalPrice - EIngredient.properties[EIngredient[action.ingredientName]].price;
-            break;
+            return removeIngredient(state, action);
         case actionTypes.SET_INGREDIENTS:
-            newState.totalPrice = 4;
-            newIngredients = {
-                salad: action.ingredients.salad,
-                bacon: action.ingredients.bacon,
-                cheese: action.ingredients.cheese,
-                meat: action.ingredients.meat
-            }
-            break;
+            return setIngredients(state, action);
         case actionTypes.FETCH_INGREDIENTS_FAILED:
-            newState.hasError = true;
-            break;
+            return fetchIngredientsFailed(state);
         default:
-            break;
+            return state;
     }
-
-    newState.ingredients = newIngredients;
-
-    // isPurchasable set after new ingredients are added
-    const arr = Object.keys(newState.ingredients).map((key) => newState.ingredients[key]);
-    const sumArray = arr.reduce((sum, el) => sum + el, 0);
-    newState.isPurchasable = (sumArray > 0);
-
-    return newState;
 };
 
 

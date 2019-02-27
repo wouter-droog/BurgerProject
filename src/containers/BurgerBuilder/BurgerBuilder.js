@@ -54,7 +54,7 @@ class BurgerBuilder extends Component {
 
         let orderSummary = <Spinner />
         let burgerAndControls = this.props.error ? <p>The page can't be loaded</p> : <Spinner />
-        if (Object.keys(this.props.ingrs).length !== 0) {
+        if (this.props.ingrs) {
             burgerAndControls = (
                 <>
                     <Burger ingredients={this.props.ingrs}/>
