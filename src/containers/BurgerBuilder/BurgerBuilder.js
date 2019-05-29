@@ -11,7 +11,7 @@ import withErrorHandling from '../../hoc/withErrorHandling/withErrorHandling';
 import httpClient from '../../axios-orders';
 import * as actions from '../../store/actions/actionsIndex';
 
-
+// some random comment
 class BurgerBuilder extends Component {
 
     state = {
