@@ -12,7 +12,7 @@ const CONTACTDATA_PATH = '/contact-data';
 // Check out comment
 class Checkout extends Component {
 
-
+    // branch 2 comment
     checkoutCancelHandler = () => {
         this.props.history.goBack();
     }
