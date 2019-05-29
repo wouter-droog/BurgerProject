@@ -9,10 +9,11 @@ import ContactData from './ContactData/ContactData';
 
 const CONTACTDATA_PATH = '/contact-data';
 
+// Check out comment
 class Checkout extends Component {
 
 
-    checkoutCancelHandler = () => {
+    // checkoutCancelHandler = () => {
         this.props.history.goBack();
     }
 
