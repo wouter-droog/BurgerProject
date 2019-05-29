@@ -7,7 +7,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import httpClient from '../../axios-orders';
 import withErrorHandling from '../../hoc/withErrorHandling/withErrorHandling'
 
-// master random comment
+// master random comment + branch 1 comment
 class Orders extends Component {
 
     componentDidMount () {
