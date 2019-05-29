@@ -13,7 +13,7 @@ const CONTACTDATA_PATH = '/contact-data';
 class Checkout extends Component {
 
 
-    // checkoutCancelHandler = () => {
+    checkoutCancelHandler = () => {
         this.props.history.goBack();
     }
 
