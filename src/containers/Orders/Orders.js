@@ -14,6 +14,7 @@ class Orders extends Component {
         this.props.onFetchOrders();
     }
 
+    // render
     render() {
         let orders = <Spinner />;
         if (!this.props.isLoading) {
